@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import React from "react";
 
-const tos: NextPage = () => {
+const Tos: NextPage = () => {
   return (
     <div>
       <p>Many terms actually just one</p>
@@ -10,4 +10,4 @@ const tos: NextPage = () => {
   );
 };
 
-export default tos;
+export default Tos;

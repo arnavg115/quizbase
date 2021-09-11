@@ -3,7 +3,7 @@ import Router from "next/router";
 import React, { useEffect } from "react";
 import { supabase } from "../utils/createClient";
 
-const auth: NextPage = () => {
+const Auth: NextPage = () => {
   useEffect(() => {
     checker();
   }, []);
@@ -50,4 +50,4 @@ const auth: NextPage = () => {
   );
 };
 
-export default auth;
+export default Auth;
