@@ -1,8 +1,9 @@
+import { NextPage } from "next";
 import Router from "next/router";
 import React, { useEffect } from "react";
 import { supabase } from "../utils/createClient";
 
-const auth = () => {
+const auth: NextPage = () => {
   useEffect(() => {
     checker();
   }, []);
