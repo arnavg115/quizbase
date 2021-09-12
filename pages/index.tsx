@@ -104,7 +104,11 @@ const Home: NextPage = () => {
         return (
           <div key={x.id}>
             <p>{x.name}</p>
-            <div>{x.cards ? x.cards.map((y: any) => <p>{y}</p>) : null}</div>
+            <div>
+              {x.cards
+                ? x.cards.map((y: any) => <p key={Math.random()}>{y}</p>)
+                : null}
+            </div>
             <button
               onClick={async () => {
                 await supabase.from("decks").delete().eq("id", x.id!);
