@@ -2,11 +2,10 @@ import { User } from "@supabase/gotrue-js";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/createClient";
-import { v4 } from "uuid";
-import Router from "next/router";
+
+import { NavBar } from "../components/NavBar";
 const Home: NextPage = () => {
   const [User, setUser] = useState<User>();
-  const [deck, setDeck] = useState("");
   const [loads, setLoads] = useState<any[]>([]);
   useEffect(() => {
     loadUser();
@@ -39,66 +38,6 @@ const Home: NextPage = () => {
   };
   return (
     <div>
-      {User ? (
-        <div>
-          <div style={{ display: "flex" }}>
-            <p>Signed in as {User.email}</p>
-
-            <img
-              src={User.user_metadata.avatar_url}
-              alt="profile"
-              style={{
-                width: "50px",
-                borderRadius: "50%",
-                marginLeft: "10px",
-                marginRight: "10px",
-              }}
-            />
-            <button
-              onClick={async () => {
-                await supabase.auth.signOut();
-              }}
-            >
-              Logout
-            </button>
-          </div>
-          <input
-            placeholder="Deck Name"
-            value={deck}
-            onChange={(e) => {
-              setDeck(e.target.value);
-            }}
-          />
-          <button
-            onClick={async () => {
-              // console.log(User.id);
-              const { data, error } = await supabase.from("decks").insert([
-                {
-                  id: v4(),
-                  name: deck,
-                  uid: User.id,
-                },
-              ]);
-              console.log(data);
-              setDeck("");
-              fetchThem();
-            }}
-          >
-            add
-          </button>
-        </div>
-      ) : (
-        <div>
-          <p>Sign In</p>
-          <button
-            onClick={() => {
-              Router.push("/auth");
-            }}
-          >
-            Go to login
-          </button>
-        </div>
-      )}
       <h1>Decks</h1>
       {loads.map((x) => {
         return (
