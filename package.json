@@ -1,30 +1,24 @@
 {
-  "name": "quizlr",
-  "version": "0.1.0",
+  "name": "turborepo-basic-shared",
+  "version": "0.0.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^1.22.5",
-    "grommet": "^2.17.5",
-    "grommet-icons": "^4.6.2",
-    "next": "11.1.2",
-    "polished": "^4.1.3",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "styled-components": "^5.3.1",
-    "uuid": "^8.3.2"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@types/react": "17.0.20",
-    "@types/styled-components": "^5.1.14",
-    "@types/uuid": "^8.3.1",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "typescript": "4.4.2"
-  }
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "packageManager": "yarn@1.22.18"
 }
