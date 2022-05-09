@@ -1,6 +1,6 @@
 # quizbase
 
-A new way to learn
+A new open source cross platform application to make learning better.
 
 ### Apps and Packages
 
