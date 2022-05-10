@@ -10,6 +10,9 @@
     "dev": {
       "cache": false
     },
-    "start": {}
+    "start": {},
+    "dal#build": {
+      "dependsOn": ["^build", "$NEXT_PUBLIC_GITHUB_CLIENT_ID"]
+    }
   }
 }

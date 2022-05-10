@@ -11,7 +11,9 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "start": "turbo run start --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "web#dev": "turbo run dev --filter=dal",
+    "server#dev": "turbo run dev --filter=korma"
   },
   "devDependencies": {
     "prettier": "latest",
