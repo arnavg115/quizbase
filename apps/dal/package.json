@@ -17,7 +17,7 @@
     "react-dom": "17.0.2",
     "ui": "*",
     "urql": "^2.2.0",
-    "utils": "./packages/utils"
+    "utils": "file:./packages/utils"
   },
   "devDependencies": {
     "@types/cookie": "^0.5.1",
