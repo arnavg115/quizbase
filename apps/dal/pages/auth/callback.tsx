@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import React, { useEffect } from "react";
 import { grabParams } from "utils";
 import axios from "axios";
-const callback = ({ params }: { params: { code: string } }) => {
+const Callback = ({ params }: { params: { code: string } }) => {
   useEffect(() => {
     auth();
   }, []);
@@ -26,4 +26,4 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   };
 };
 
-export default callback;
+export default Callback;
