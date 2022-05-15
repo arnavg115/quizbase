@@ -4,17 +4,74 @@ import { User } from "./entity/User";
 import * as express from "express";
 import { AppDataSource } from "./data-source";
 import { ApolloServer } from "apollo-server-express";
-
+import { grabParams } from "utils";
 import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolvers/userResolver";
 import * as cors from "cors";
+import axios from "axios";
+import { createAccessToken, createRefreshToken } from "./utils";
 (async () => {
   const app = express();
+
   app.use(
     cors({
       origin: "*",
+      credentials: true,
     })
   );
+  app.get("/login", async (req, response) => {
+    // return response.send(req.url.split("?")[1]);
+
+    const code = req.query.code as any;
+    const resp = await axios.post(
+      "https://github.com/login/oauth/access_token",
+      {
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    console.log(resp.data);
+    if (resp.data.hasOwnProperty("error")) {
+      console.log("error");
+      console.log(req.query);
+
+      return response.status(401).send("UhOh");
+      // throw new Error("Unauthorized");
+    }
+    const aT = resp.data.access_token as string;
+
+    const emails = await axios.get("https://api.github.com/user/emails", {
+      headers: {
+        Authorization: `token ${aT}`,
+      },
+    });
+    const res = emails.data.filter((x) => x.primary === true);
+    if (res.length < 1 || !res[0].verified) {
+      return response.status(401);
+
+      // throw new Error("Bad email");
+    }
+
+    const email = res[0].email as string;
+    let user = await User.findOne({ where: { email } });
+    if (!user) {
+      await User.insert({ email, accessToken: aT });
+      user = await User.findOne({ where: { email } });
+    } else {
+      user = await User.findOne({ where: { email } });
+    }
+    return response.status(200).send({
+      user: user,
+      accessToken: createAccessToken(user),
+      refreshToken: createRefreshToken(user),
+    });
+  });
   await AppDataSource.initialize();
 
   // const httpServer = http.createServer(app);
@@ -23,6 +80,7 @@ import * as cors from "cors";
   });
   await server.start();
   server.applyMiddleware({ app, cors: false });
+
   app.listen(8000, () => {
     console.log("Running ");
   });

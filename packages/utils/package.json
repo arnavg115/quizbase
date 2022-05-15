@@ -1,0 +1,14 @@
+{
+  "name": "utils",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint *.ts*"
+  },
+  "devDependencies": {
+    "tsconfig": "*",
+    "typescript": "^4.5.2"
+  }
+}
