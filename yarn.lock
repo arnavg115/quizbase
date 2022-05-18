@@ -3982,7 +3982,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-"utils@file:packages/utils":
+utils@./packages/utils:
   version "0.0.1"
 
 uuid@^8.0.0, uuid@^8.3.2:

@@ -1,10 +1,26 @@
-import { User } from './entity/User'
-import { sign } from 'jsonwebtoken'
+import { User } from "./entity/User";
+import { sign } from "jsonwebtoken";
+import * as express from "express";
 
 export const createAccessToken = (user: User) => {
-  return sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' })
-}
+  return sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, {
+    expiresIn: "15m",
+  });
+};
 
-export const createRefreshToken = (user:User)=>{
-    return sign({userId: user.id},process.env.REFRESH_TOKEN_SECRET!, {expiresIn:'7d'})
-}
+export const createRefreshToken = (user: User) => {
+  return sign({ userId: user.id }, process.env.REFRESH_TOKEN_SECRET!, {
+    expiresIn: "7d",
+  });
+};
+
+export const setCookie = (
+  res: express.Response,
+  name: string,
+  body: string,
+  httpOnly: boolean
+) => {
+  res.cookie(name, body, {
+    httpOnly,
+  });
+};
